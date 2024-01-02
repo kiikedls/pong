@@ -11,6 +11,8 @@ push=require 'push'
 --https://github.com/vrld/hump/blob/master/class.lua
 Class=require 'class'
 
+--un comentario
+
 --incluir la clase de las raquetas
 require 'Paddle'
 
