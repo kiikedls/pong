@@ -11,8 +11,6 @@ push=require 'push'
 --https://github.com/vrld/hump/blob/master/class.lua
 Class=require 'class'
 
---un comentario
-
 --incluir la clase de las raquetas
 require 'Paddle'
 
@@ -62,8 +60,11 @@ function love.load()
         ['paddleHit'] = love.audio.newSource('sounds/paddle_hit.wav', 'static'),
         ['score'] = love.audio.newSource('sounds/score.wav', 'static'),
         ['wallHit'] = love.audio.newSource('sounds/wall_hit.wav', 'static'),
+        ['background'] = love.audio.newSource('sounds/Spider-Dance.wav', 'static'),
     }
-   
+    --pone el efecto de sonido en loop
+    sounds.background:setLooping(true)
+    --sounds.background:play()
     push:setupScreen(_VWIDTH, _VHEIGHT, _WINDOWIDTH, _WINDOWHEIGHT,{
         --con estos parametros el juego NO sera pantalla completa ni pondran cambiar el tamaño de esta
         fullscreen=false,
@@ -113,6 +114,8 @@ function love.update(dt)
             ball.DX = -math.random(140, 200)
         end
     elseif gameState == 'play' then
+        --comienza la musica cuando inicia el juego
+        sounds.background:play()
        --detectar la colision con el jugador 1 invirtiendo la velocidad dx 
         --pero en la direccion contraria mas un incremento del 3%
         --y alterando el angulo dy basado en la posicion de la colicion
@@ -191,6 +194,9 @@ function love.update(dt)
                 ball:reset()
             end
         end
+    elseif gameState == 'done' then
+        --si es tado de la maquina es 'done' la musica se detiene
+        sounds.background:stop()
     end
 
     
